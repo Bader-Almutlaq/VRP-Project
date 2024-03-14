@@ -9,22 +9,22 @@ public class Main {
         LinkedList<Customer> customers = new LinkedList<>();
 
         customers.add(new Customer(0, 0));
-        customers.add(new Customer(-1, 1));
+        customers.add(new Customer(-2, 4));
+        customers.add(new Customer(4, 4));
+        customers.add(new Customer(-4, 3));
+        customers.add(new Customer(-3, 3));
         customers.add(new Customer(1, 2));
+        customers.add(new Customer(3, 2));
+        customers.add(new Customer(-1, 1));
         customers.add(new Customer(2, 1));
         customers.add(new Customer(1, -1));
-        customers.add(new Customer(2, -3));
-        customers.add(new Customer(3, -4));
         customers.add(new Customer(4, -1));
-        customers.add(new Customer(3, 2));
-        customers.add(new Customer(4, 4));
-        customers.add(new Customer(-1, -3));
-        customers.add(new Customer(-2, -2));
         customers.add(new Customer(-3, -2));
+        customers.add(new Customer(-2, -2));
+        customers.add(new Customer(-1, -3));
+        customers.add(new Customer(2, -3));
         customers.add(new Customer(-4, -4));
-        customers.add(new Customer(-1, 4));
-        customers.add(new Customer(-3, 3));
-        customers.add(new Customer(-4, 3));
+        customers.add(new Customer(3, -4));
 
         // To generate points randomly
         // for (int i = 0; i < NUMBER_OF_CUSTOMERS; i++) {
