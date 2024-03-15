@@ -41,11 +41,11 @@ public class Main {
         double distanceMatrix[][] = Backtrack.generateDistanceMatrix(customers);
         // Backtrack.printDistanceMatrix(distanceMatrix);
 
-        Backtrack.backtrack(vehicles, distanceMatrix);
+        Backtrack.backtrack(vehicles, distanceMatrix); // This function will modify the vehicles list.
 
         System.out.println();
         for (int i = 0; i < NUMBER_OF_VEHICLES; i++) {
-            System.out.println("Vehicle " + (i + 1) + " route: " + vehicles.get(i).route);
+            System.out.println("Vehicle " + (i + 1) + " route: " + vehicles.get(i).route); // Printing vehicles routs.
         }
         System.out.println();
     }

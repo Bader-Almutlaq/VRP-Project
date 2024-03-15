@@ -2,31 +2,31 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class Backtrack {
-
+    // A helper function to prepare the backtracking with required parameters.
     public static void backtrack(LinkedList<Vehicle> vehicles, double[][] distanceMatrix) {
-        LinkedList<Integer> unassignedPoints = new LinkedList<Integer>();
+        LinkedList<Integer> unassignedPoints = new LinkedList<Integer>(); // List to store the unassigned locations.
         for (int i = 1; i < distanceMatrix.length; i++) {
-            unassignedPoints.add(i);
+            unassignedPoints.add(i); // Adding all the points to the list except the depot.
         }
-        LinkedList<Integer> assignedPoints = new LinkedList<Integer>();
-        assignedPoints.add(0);
+        LinkedList<Integer> assignedPoints = new LinkedList<Integer>(); // List to store the assigned locations.
+        assignedPoints.add(0); // Adding the depot since all the vehicles start form this location.
 
         if (!(backtrack(vehicles, distanceMatrix, assignedPoints, unassignedPoints))) {
             System.out.println("No solution");
         }
 
         for (int i = 0; i < vehicles.size(); i++) {
-            vehicles.get(i).route.add(0);
+            vehicles.get(i).route.add(0); // Adding the depot at the end of each vehicle route.
         }
     }
 
     private static boolean backtrack(LinkedList<Vehicle> vehicles, double[][] distanceMatrix,
             LinkedList<Integer> assignedPoints, LinkedList<Integer> unassignedPoints) {
-        // Base case: If all points are assigned, return true
+        // Base case: If all points are assigned, return true.
         if (assignedPoints.size() == distanceMatrix.length)
             return true;
 
-        // Find the closest unassigned point to the depot
+        // Find the closest unassigned point to the depot.
         double minDistanceToDepot = Double.MAX_VALUE;
         int closestPointToDepot = -1;
 
@@ -38,11 +38,11 @@ public class Backtrack {
             }
         }
 
-        // If no closest point found, return false (no solution)
+        // If no closest point found, return false (no solution).
         if (closestPointToDepot == -1)
             return false;
 
-        // Find the nearest vehicle to the closest point
+        // Find the nearest vehicle to the closest point.
         double minDistanceToVehicle = Double.MAX_VALUE;
         Vehicle nearestVehicle = null;
 
@@ -56,19 +56,20 @@ public class Backtrack {
             }
         }
 
-        // If no suitable vehicle found, return false
+        // If no suitable vehicle found, return false.
         if (nearestVehicle == null)
             return false;
 
-        // Assign the closest point to the nearest vehicle
+        // Assign the closest point to the nearest vehicle.
         nearestVehicle.route.add(closestPointToDepot);
         unassignedPoints.remove((Integer) closestPointToDepot);
         assignedPoints.add((Integer) closestPointToDepot);
 
-        // Recursively call backtrack with the updated points
+        // Recursively call backtrack with the updated points.
         return backtrack(vehicles, distanceMatrix, assignedPoints, unassignedPoints);
     }
 
+    // This function calculate the distance between all the points.
     public static double[][] generateDistanceMatrix(List<Customer> customers) {
         int size = customers.size();
         double matrix[][] = new double[size][size];
@@ -78,12 +79,13 @@ public class Backtrack {
                 Customer c2 = customers.get(j);
                 double distance = Math.sqrt(
                         Math.pow(c2.xCoordinate - c1.xCoordinate, 2) + Math.pow(c2.yCoordinate - c1.yCoordinate, 2));
-                matrix[i][j] = roundToPrecision(distance, 5); // Round distance to 5 decimal places
+                matrix[i][j] = roundToPrecision(distance, 6); // Round distance to 5 decimal places
             }
         }
         return matrix;
     }
 
+    // Round the values to the precision specified.
     public static double roundToPrecision(double number, int precision) {
         double scale = Math.pow(10, precision);
         return Math.round(number * scale) / scale;
