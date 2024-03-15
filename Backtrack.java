@@ -14,6 +14,10 @@ public class Backtrack {
         if (!(backtrack(vehicles, distanceMatrix, assignedPoints, unassignedPoints))) {
             System.out.println("No solution");
         }
+
+        for (int i = 0; i < vehicles.size(); i++) {
+            vehicles.get(i).route.add(0);
+        }
     }
 
     private static boolean backtrack(LinkedList<Vehicle> vehicles, double[][] distanceMatrix,
@@ -58,8 +62,8 @@ public class Backtrack {
 
         // Assign the closest point to the nearest vehicle
         nearestVehicle.route.add(closestPointToDepot);
-        unassignedPoints.remove((Integer)closestPointToDepot);
-        assignedPoints.add((Integer)closestPointToDepot);
+        unassignedPoints.remove((Integer) closestPointToDepot);
+        assignedPoints.add((Integer) closestPointToDepot);
 
         // Recursively call backtrack with the updated points
         return backtrack(vehicles, distanceMatrix, assignedPoints, unassignedPoints);
