@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Vehicle {
     public int capacity;
-    public LinkedList<Customer> route;
+    public LinkedList<Integer> route;
 
 
     public Vehicle(int cap){

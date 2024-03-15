@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Main {
     public static final int NUMBER_OF_CUSTOMERS = 16;
-    public static final int NUMBER_OF_VEHICLES = 2;
+    public static final int NUMBER_OF_VEHICLES = 3;
 
     public static void main(String args[]) {
 
@@ -34,13 +34,18 @@ public class Main {
         LinkedList<Vehicle> vehicles = new LinkedList<>();
 
         for (int i = 0; i < NUMBER_OF_VEHICLES; i++) {
-            vehicles.add(new Vehicle(10));
+            vehicles.add(new Vehicle(100));
+            vehicles.get(i).route.add(0); // Starting with the depot
         }
 
         double distanceMatrix[][] = Backtrack.generateDistanceMatrix(customers);
-        Backtrack.printDistanceMatrix(distanceMatrix);
+        // Backtrack.printDistanceMatrix(distanceMatrix);
 
-        Backtrack.backtrack(vehicles,customers,distanceMatrix);
+        Backtrack.backtrack(vehicles, distanceMatrix);
+
+        for (int i = 0; i < NUMBER_OF_VEHICLES; i++) {
+            System.out.println(vehicles.get(i).route);
+        }
     }
 
 }
