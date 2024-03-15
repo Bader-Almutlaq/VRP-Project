@@ -43,9 +43,11 @@ public class Main {
 
         Backtrack.backtrack(vehicles, distanceMatrix);
 
+        System.out.println();
         for (int i = 0; i < NUMBER_OF_VEHICLES; i++) {
-            System.out.println("Vehicle" + (i + 1) + "route: " + vehicles.get(i).route);
+            System.out.println("Vehicle " + (i + 1) + " route: " + vehicles.get(i).route);
         }
+        System.out.println();
     }
 
 }
