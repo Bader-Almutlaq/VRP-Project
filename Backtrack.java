@@ -26,7 +26,31 @@ public class Backtrack {
         if (assignedPoints.size() == distanceMatrix.length)
             return true;
 
-        // Find the closest unassigned point to the depot.
+
+        // Find the closest unassigned point to the depot
+        int closestPointToDepot = findClosestPointToDepot(distanceMatrix, unassignedPoints);
+
+        // If no closest point found, return false (no solution)
+        if (closestPointToDepot == -1)
+            return false;
+
+        // Find the nearest vehicle to the closest point
+        Vehicle nearestVehicle = findNearestVehicle(vehicles, distanceMatrix, closestPointToDepot);
+
+        // If no suitable vehicle found, return false
+        if (nearestVehicle == null)
+            return false;
+
+        // Assign the closest point to the nearest vehicle
+        nearestVehicle.route.add(closestPointToDepot);
+        unassignedPoints.remove((Integer) closestPointToDepot);
+        assignedPoints.add((Integer) closestPointToDepot);
+
+        // Recursively call backtrack with the updated points
+        return backtrack(vehicles, distanceMatrix, assignedPoints, unassignedPoints);
+    }
+
+    private static int findClosestPointToDepot(double[][] distanceMatrix, LinkedList<Integer> unassignedPoints) {
         double minDistanceToDepot = Double.MAX_VALUE;
         int closestPointToDepot = -1;
 
@@ -37,17 +61,16 @@ public class Backtrack {
                 closestPointToDepot = point;
             }
         }
+        return closestPointToDepot;
+    }
 
-        // If no closest point found, return false (no solution).
-        if (closestPointToDepot == -1)
-            return false;
+    private static Vehicle findNearestVehicle(LinkedList<Vehicle> vehicles, double[][] distanceMatrix,
+            int closestPointToDepot) {
 
-        // Find the nearest vehicle to the closest point.
         double minDistanceToVehicle = Double.MAX_VALUE;
         Vehicle nearestVehicle = null;
 
         for (Vehicle vehicle : vehicles) {
-            // System.out.println(vehicle.route);
             int lastPoint = vehicle.route.getLast();
             double distance = distanceMatrix[lastPoint][closestPointToDepot];
             if (distance < minDistanceToVehicle) {
@@ -55,18 +78,7 @@ public class Backtrack {
                 nearestVehicle = vehicle;
             }
         }
-
-        // If no suitable vehicle found, return false.
-        if (nearestVehicle == null)
-            return false;
-
-        // Assign the closest point to the nearest vehicle.
-        nearestVehicle.route.add(closestPointToDepot);
-        unassignedPoints.remove((Integer) closestPointToDepot);
-        assignedPoints.add((Integer) closestPointToDepot);
-
-        // Recursively call backtrack with the updated points.
-        return backtrack(vehicles, distanceMatrix, assignedPoints, unassignedPoints);
+        return nearestVehicle;
     }
 
     // This function calculate the distance between all the points.
